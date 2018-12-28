@@ -85,3 +85,110 @@
 	window.onresize();
 	window.requestAnimationFrame(render);
 })();
+
+
+(function() {
+    var nodes, current;
+    
+    function Animation(element) {
+        this.element = element;
+        this.stepMul = 10;
+        this.stepTo = 4;
+        this.element.style.visibility = "visible";
+        this.canvas = document.createElement("canvas");
+        this.canvas.style.visibility = "hidden";
+        this.canvas.style.position = "absolute";
+        this.canvas.style.width = this.element.offsetWidth + "px";
+        this.canvas.style.height = this.element.offsetHeight + "px";
+        this.canvas.style.top = this.element.offsetTop + "px";
+        this.canvas.style.left = this.element.offsetLeft + "px";
+        this.canvas.style.zIndex = "auto";
+        
+        this.context = this.canvas.getContext('2d');
+        
+        this.element.parentElement.appendChild(this.canvas);
+    };
+    Animation.prototype.loadCanvas = function(callback) {
+        var self = this;
+        html2canvas(this.element, {
+            onrendered: function(canvas) { 
+                self.image = new Image();
+                self.image.src = canvas.toDataURL();
+                
+                self.canvas.style.visibility = "visible";
+                self.element.style.visibility = "hidden"; 
+                callback && callback();
+            }
+        });
+    };
+    Animation.prototype.hide = function() {
+        this.step = 0;
+        this.showing = false;
+        this.loadCanvas(this.render.bind(this));
+    };
+    Animation.prototype.show = function() {
+        this.step = 0;
+        this.showing = true;
+        this.loadCanvas(this.render.bind(this));
+    };
+    Animation.prototype.destroy = function() {
+        this.canvas && this.canvas.parentElement && this.canvas.parentElement.removeChild(this.canvas);
+    };
+    Animation.prototype.render = function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.context.drawImage(this.image, 0, 0, this.canvas.width, this.canvas.height);
+        var inc = this.step / this.stepTo;
+        this.showing && (inc = 1 - inc);
+        for(var i = Math.floor(inc * this.stepMul) + 1, j = 0; j < i ; j++) {
+            var x = Math.random() * (this.canvas.width /2),
+                y = Math.random() * this.canvas.height,
+                w = this.canvas.width - x,
+                h = 30 * Math.random() + 2;
+            this.context.clearRect(x, y, w, h);
+            this.context.clearRect(w, y, x, h);
+            this.context.drawImage(this.image, 0, y, w, h, x, y, w, h);
+            this.context.drawImage(this.image, w, y, x, h, 0, y, x, h);
+        }
+        
+        if(this.step < this.stepTo) {
+            this.step++;
+            setTimeout(this.render.bind(this), Math.random() * 250);
+        } else { 
+            this.destroy();
+            this.onComplete && this.onComplete();
+        }
+    }
+
+    function next() {
+        var nodeFrom = current,
+            nodeTo = current._next;
+        
+        current = current._next;
+        nodeFrom.style.display = "block";
+        var a = new Animation(nodeFrom),
+            b;
+        a.onComplete = function() {
+            nodeFrom.style.display = "none";
+            nodeTo.style.display = "block";
+            b = new Animation(nodeTo);
+            b.onComplete = next;
+            b.show();
+        };
+        setTimeout(function() { a.hide() }, 3000);
+    }
+    function init() {
+        nodes = Array.prototype.slice.call(document.querySelectorAll(".item"));
+        nodes.forEach(function(value, index) {
+            if(index == nodes.length - 1)
+                nodes[index]._next = nodes[0];
+            else
+                nodes[index]._next = nodes[index+1];
+        });
+        
+        current = nodes[0];
+        
+        next();
+    } 
+    
+    document.addEventListener('DOMContentLoaded', function() { init(); });
+})();
