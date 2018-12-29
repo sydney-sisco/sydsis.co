@@ -60,3 +60,6 @@ p {
 .blue {
     color: blue;
 }
+#links {
+    opacity: 0.2;
+}
