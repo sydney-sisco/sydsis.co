@@ -63,3 +63,25 @@ p {
 #links {
     opacity: 0.2;
 }
+
+
+
+.link {
+    position: relative;
+    display: inline-block;
+}
+.pattern {
+    display: none;
+    /* position: absolute; */
+    top: 0;
+    left: 0;
+}
+.link:hover .pattern {
+    display: inline;
+    /* opacity: .7; */
+}
+
+.link:hover .logo {
+    display: none;
+    /* opacity: .7; */
+}
