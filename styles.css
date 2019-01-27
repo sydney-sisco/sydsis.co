@@ -25,8 +25,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #000;
-    font-family: 'Comfortaa', cursive;
+    background-color: black;
 }
 #list {
     text-align: center;
