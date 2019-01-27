@@ -21,14 +21,6 @@ html, body, #tv {
 	-webkit-perspective: 1000;
 }
 
-
-@import url(https://fonts.googleapis.com/css?family=Roboto);
-html, body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
 body {
     display: flex;
     align-items: center;
@@ -45,6 +37,7 @@ body {
 }
 .item {
     font-size: 125px;
+    color: white;
     display: inline-block;
     display: none;
     opacity: 0.3;
@@ -54,15 +47,7 @@ p {
     font-size: 70px;
     opacity: 0.5;
 }
-.red {
-    color: white;
-}
-.green {
-    color: green;
-}
-.blue {
-    color: blue;
-}
+
 #links {
     opacity: 0.2;
 }
