@@ -9,7 +9,7 @@
 		scanOffsetY = 0,
 		scanSize = 0,
 		FPS = 60,
-		scanSpeed = FPS * 15, // 15 seconds from top to bottom
+		scanSpeed = FPS * 0, // 15 seconds from top to bottom
 		SAMPLE_COUNT = 10;
 
 	window.onresize = function() {
