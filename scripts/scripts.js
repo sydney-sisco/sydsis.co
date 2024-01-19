@@ -1,3 +1,4 @@
+// tv static background
 (function() {
 	"use strict";
 
@@ -87,6 +88,7 @@
 })();
 
 
+// glitch effect
 (function() {
     var nodes, current;
     
@@ -174,7 +176,7 @@
             b.onComplete = next;
             b.show();
         };
-        setTimeout(function() { a.hide() }, 3000);
+        setTimeout(function() { a.hide() }, 10000);
     }
     function init() {
         nodes = Array.prototype.slice.call(document.querySelectorAll(".item"));
