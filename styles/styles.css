@@ -1,3 +1,8 @@
+:root {
+    --thunder-dark-color: rgba(34, 34, 34, 0.9);
+    --thunder-light-color: rgba(59, 59, 59, 0.3);
+}
+
 html, body, #tv {
 	padding: 0;
 	margin: 0;
@@ -13,17 +18,6 @@ html, body, #tv {
 @font-face {
     font-family: 'Monoton';
     src: url('Monoton-Regular.ttf');
-}
-
-#tv {
-	position: absolute;
-	top: 0;
-	left: 0;
-	-webkit-transform: translate3d(0, 0, 0);
-	-moz-transform: translate3d(0, 0, 0);
-	transform: translate3d(0, 0, 0);
-	-webkit-backface-visibility: hidden;
-	-webkit-perspective: 1000;
 }
 
 body {
@@ -43,48 +37,11 @@ body {
     font-size: 125px;
     color: white;
     display: inline-block;
-    /* display: none; needed for the glitch animation */
     font-family: 'FSEX300';
 }
 p {
     font-size: 70px;
-    opacity: 0.5;
-}
-
-#links {
-    opacity: 0.2;
-}
-
-.flicker-slow {
-    animation: flicker 3s linear infinite;
-}
-
-.flicker-fast {
-    animation: flicker 1s linear infinite;
-}
-
-@keyframes flicker {
-
-    0%,
-    19.999%,
-    22%,
-    62.999%,
-    64%,
-    64.999%,
-    70%,
-    100% {
-        opacity: .99;
-
-    }
-
-    20%,
-    21.999%,
-    63%,
-    63.999%,
-    65%,
-    69.999% {
-        opacity: 0.4;
-    }
+    opacity: 0; 
 }
 
 html {
@@ -122,10 +79,11 @@ body:after {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.1);
+    /* background-color: rgba(0, 0, 0, 0.1); */
     z-index: 1;
     -webkit-animation: thunder-bg 6s infinite;
     animation: thunder-bg 6s infinite;
+    pointer-events: none;
 }
 
 canvas {
@@ -133,6 +91,7 @@ canvas {
     position: absolute;
     top: 0;
     left: 0;
+    pointer-events: none;
 }
 
 #canvas2 {
@@ -144,39 +103,19 @@ canvas {
 }
 
 @-webkit-keyframes thunder-bg {
-    0% {
-        background-color: rgba(34, 34, 34, 0.9);
-    }
 
-    9% {
-        background-color: rgba(34, 34, 34, 0.9);
-    }
-
-    10% {
-        background-color: rgba(59, 59, 59, 0.3);
-    }
-
-    10.5% {
-        background-color: rgba(34, 34, 34, 0.9);
-    }
-
-    80% {
-        background-color: rgba(34, 34, 34, 0.9);
-    }
-
-    82% {
-        background-color: rgba(59, 59, 59, 0.3);
-    }
-
-    83% {
-        background-color: rgba(34, 34, 34, 0.9);
-    }
-
-    83.5% {
-        background-color: rgba(59, 59, 59, 0.3);
-    }
-
+    0%,
+    9%,
+    10.5%,
+    80%,
+    83%,
     100% {
-        background-color: rgba(34, 34, 34, 0.9);
+        background-color: var(--thunder-dark-color);
+    }
+
+    10%,
+    82%,
+    83.5% {
+        background-color: var(--thunder-light-color);
     }
 }
