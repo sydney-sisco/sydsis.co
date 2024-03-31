@@ -119,3 +119,16 @@ canvas {
         background-color: var(--thunder-light-color);
     }
 }
+
+#links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+#links div {
+    flex: 1 0 50%;
+    max-width: 50%;
+}
