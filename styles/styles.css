@@ -128,7 +128,9 @@ canvas {
     width: 100%;
 }
 
-#links div {
-    flex: 1 0 50%;
-    max-width: 50%;
+@media (max-width: 600px) {
+    #links div {
+        flex: 1 0 50%;
+        max-width: 50%;
+    }
 }
